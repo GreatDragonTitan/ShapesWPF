@@ -1,0 +1,68 @@
+﻿<Window x:Class="DrawHexagon.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DrawHexagon"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel Background="Silver" >
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem Header="_Mode">
+                <MenuItem Header="_Draw" Click="DrawMode_Click"/>
+                <MenuItem Header="_Select"  Click="SelectMode_Click"/>
+            </MenuItem>
+            <MenuItem Header="_Hexagones">
+                <ListBox ItemsSource="{Binding Nodes}">
+                    <ListBox.Resources>
+                        <DataTemplate DataType="{x:Type local:Shape}">
+                            <MenuItem Header="{Binding Number}"/>
+                        </DataTemplate>
+                    </ListBox.Resources>
+                </ListBox>
+            </MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="{Binding XPos,StringFormat=X : {0}}"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="{Binding YPos,StringFormat=Y : {0}}"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock  Text="{Binding Mode, StringFormat=Mode {0}, UpdateSourceTrigger=PropertyChanged}" />
+            </StatusBarItem>
+        </StatusBar>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Path=Nodes, UpdateSourceTrigger=PropertyChanged}" Name="CanvasArea" Background="White" Height="300" Width="500" ClipToBounds="true" HorizontalAlignment="Left" VerticalAlignment="Top" MouseLeftButtonDown="CanvasArea_MouseLeftButtonDown" MouseMove="CanvasArea_MouseMove">
+                <ItemsControl.Resources>
+                    <DataTemplate DataType="{x:Type local:Shape}">
+                        <Path Data="{Binding Geometry, UpdateSourceTrigger=PropertyChanged}" Stroke="Black" Fill="BlanchedAlmond"/>
+                        
+                    </DataTemplate>
+                </ItemsControl.Resources>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Top"  Value="0"/>
+                        <Setter Property="Canvas.Left"  Value="0"/>
+                        <EventSetter Event="MouseDown" Handler="MouseDownShape"/>
+                        <EventSetter Event="MouseMove" Handler="MouseMoveShape"/>
+                        <EventSetter Event="MouseUp" Handler="MouseUpShape"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

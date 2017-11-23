@@ -1,0 +1,17 @@
+﻿<Window x:Class="DrawHexagon.ColorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DrawHexagon"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Налаштування шестикутника" Height="300" Width="300">
+    <StackPanel>
+        <TextBlock Text="Фон" Margin="10"/>
+        <xctk:ColorPicker x:Name="_fillColorPicker" VerticalAlignment="Top" Margin="10 0 10 0"/>
+        <TextBlock Text="Кисть" Margin="10"/>
+        <xctk:ColorPicker x:Name="_strokeColorPicker" VerticalAlignment="Top" Margin="10 0 10 0"/>
+        <Button Content="OK" Click="OK_Click" Margin="10 20 10 0"/>
+    </StackPanel>
+</Window>
